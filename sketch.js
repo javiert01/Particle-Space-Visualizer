@@ -6,11 +6,12 @@
 // https://editor.p5js.org/codingtrain/sketches/QRzgzQLnQ
 
 let emitters = []
-let figureList = ['Heart', 'Cat'];
-
+let gravity
+let figureList = ['Heart', 'Cat', 'Dolphin', 'Dragonfly']
 
 function setup() {
   createCanvas(800, 600)
+  gravity = createVector(0, 0.08)
   emitterStar = new Emitter(width / 2, height - 20, 'STARFIELD')
 }
 
@@ -27,8 +28,17 @@ function draw() {
   for (let emitter of emitters) {
     emitter.emit(5)
     !emitter.attractAllFinished() ? emitter.attractAll() : null
+    // emitter.applyForce(gravity);
     emitter.update()
     emitter.show()
+  }
+  for (let i = emitters.length - 1; i >= 0; i--) {
+    if (emitters[i].finished()) {
+      emitters[i].applyForce(gravity)
+    }
+    if (emitters[i].gravityFinished()) {
+      emitters.splice(i, 1)
+    }
   }
 }
 

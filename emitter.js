@@ -3,8 +3,11 @@ class Emitter {
     this.position = createVector(x, y)
     this.particles = []
     this.type = type
-    // this.attractor = new Attractor(x, y, 12)
+    this.figure = random(figureList)
+    // this.attractor = new Attractor(x, y, 5)
+    this.lifetime = 750;
     this.attractAllLifetime = 800;
+    this.gravityLifetime = 450;
   }
 
   emit(num) {
@@ -13,11 +16,19 @@ class Emitter {
         case 'STARFIELD':
           this.particles.push(new Starfield(this.position.x, this.position.y))
         case 'PARTICLE':
-          this.particles.push(new Particle(this.position.x, this.position.y, this.attractAllFinished()))
+          this.particles.push(new Particle(this.position.x, this.position.y, this.attractAllFinished(), this.figure, this.finished(), this.gravityLifetime))
         default:
           null
       }
     }
+  }
+
+  finished() {
+    return this.lifetime < 0
+  }
+
+  gravityFinished() {
+    return this.gravityLifetime < -200
   }
 
   attractAllFinished() {
@@ -58,6 +69,8 @@ class Emitter {
     }
 
     this.attractAllLifetime -= 5;
+    this.attractAllFinished() ? this.lifetime -=5 : null;
+    this.finished() ? this.gravityLifetime -= 5 : null;
   }
 
   show() {
