@@ -313,7 +313,7 @@ class Particle extends p5.Vector {
             (34 / 25) * sin(54 * t + 37 / 26))
         return createVector(xDolphin, yDolphin)
       case 'Dragonfly':
-        let rDragonFly = 0.003
+        let rDragonFly = -0.003
         let xDragonfly =
           rDragonFly *
           ((2 / 9) * sin(15 / 19 - 81 * t) +

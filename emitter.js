@@ -50,7 +50,7 @@ class Emitter {
   attractAll() {
     this.particles.map((particle, index) => {
       this.particles.map((particleAux, indexAux) => {
-        if (index !== indexAux) {
+        if (index !== indexAux && indexAux < 280) {
           particle.attract(particleAux)
         }
       })

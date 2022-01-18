@@ -28,7 +28,6 @@ function draw() {
   for (let emitter of emitters) {
     emitter.emit(5)
     !emitter.attractAllFinished() ? emitter.attractAll() : null
-    // emitter.applyForce(gravity);
     emitter.update()
     emitter.show()
   }
